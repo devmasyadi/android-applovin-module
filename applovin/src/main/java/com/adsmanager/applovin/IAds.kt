@@ -16,26 +16,26 @@ interface IAds {
     fun showBanner(
         activity: Activity,
         bannerView: RelativeLayout,
-        sizeBanner: SizeBanner? = SizeBanner.SMALL,
+        sizeBanner: SizeBanner,
         adUnitId: String,
-        callbackAds: CallbackAds
+        callbackAds: CallbackAds?
     )
 
     fun loadInterstitial(activity: Activity, adUnitId: String)
-    fun showInterstitial(activity: Activity, adUnitId: String, callbackAds: CallbackAds)
+    fun showInterstitial(activity: Activity, adUnitId: String, callbackAds: CallbackAds?)
     fun showNativeAds(
         activity: Activity,
         nativeView: RelativeLayout,
-        sizeNative: SizeNative? = SizeNative.SMALL,
+        sizeNative: SizeNative,
         adUnitId: String,
-        callbackAds: CallbackAds
+        callbackAds: CallbackAds?
     )
 
     fun loadRewards(activity: Activity, adUnitId: String)
     fun showRewards(
         activity: Activity,
         adUnitId: String,
-        callbackAds: CallbackAds,
+        callbackAds: CallbackAds?,
         iRewards: IRewards?
     )
 }

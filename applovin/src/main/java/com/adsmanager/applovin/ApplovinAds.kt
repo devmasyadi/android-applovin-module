@@ -60,19 +60,18 @@ class ApplovinAds : IAds {
     override fun showBanner(
         activity: Activity,
         bannerView: RelativeLayout,
-        sizeBanner: SizeBanner?,
+        sizeBanner: SizeBanner,
         adUnitId: String,
-        callbackAds: CallbackAds
+        callbackAds: CallbackAds?
     ) {
         adView = when (sizeBanner) {
             SizeBanner.SMALL -> MaxAdView(adUnitId, activity)
             SizeBanner.MEDIUM -> MaxAdView(adUnitId, MaxAdFormat.MREC, activity)
-            else -> MaxAdView(adUnitId, activity)
         }
 
         adView?.setListener(object : MaxAdViewAdListener {
             override fun onAdLoaded(ad: MaxAd?) {
-                callbackAds.onAdLoaded()
+                callbackAds?.onAdLoaded()
             }
 
             override fun onAdDisplayed(ad: MaxAd?) {
@@ -88,7 +87,7 @@ class ApplovinAds : IAds {
             }
 
             override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
-                callbackAds.onAdFailedToLoad("adUnitId: $adUnitId, error: ${error?.message}")
+                callbackAds?.onAdFailedToLoad("adUnitId: $adUnitId, error: ${error?.message}")
             }
 
             override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
@@ -171,11 +170,11 @@ class ApplovinAds : IAds {
         interstitialAd.loadAd()
     }
 
-    override fun showInterstitial(activity: Activity, adUnitId: String, callbackAds: CallbackAds) {
+    override fun showInterstitial(activity: Activity, adUnitId: String, callbackAds: CallbackAds?) {
         if (interstitialAd.isReady) {
             interstitialAd.showAd()
         } else {
-            callbackAds.onAdFailedToLoad("Interstitial not ready ")
+            callbackAds?.onAdFailedToLoad("Interstitial not ready ")
             loadInterstitial(activity, adUnitId)
         }
     }
@@ -186,13 +185,13 @@ class ApplovinAds : IAds {
     override fun showNativeAds(
         activity: Activity,
         nativeView: RelativeLayout,
-        sizeNative: SizeNative?,
+        sizeNative: SizeNative,
         adUnitId: String,
-        callbackAds: CallbackAds
+        callbackAds: CallbackAds?
     ) {
         val layoutNative: Int = when (sizeNative) {
             SizeNative.SMALL -> R.layout.max_small_native
-            else -> R.layout.max_big_native
+            SizeNative.MEDIUM -> R.layout.max_big_native
         }
         val binder: MaxNativeAdViewBinder = MaxNativeAdViewBinder.Builder(layoutNative)
             .setTitleTextViewId(R.id.title_text_view)
@@ -217,13 +216,13 @@ class ApplovinAds : IAds {
                 loadedNativeAd = nativeAd
                 nativeView.removeAllViews()
                 nativeView.addView(nativeAdView)
-                callbackAds.onAdLoaded()
+                callbackAds?.onAdLoaded()
             }
 
             override fun onNativeAdLoadFailed(adUnitId: String, error: MaxError) {
                 // Native ad load failed.
                 // AppLovin recommends retrying with exponentially higher delays up to a maximum delay.
-                callbackAds.onAdFailedToLoad("adUnitId: $adUnitId, error: ${error.message}")
+                callbackAds?.onAdFailedToLoad("adUnitId: $adUnitId, error: ${error.message}")
             }
 
             override fun onNativeAdClicked(nativeAd: MaxAd) {}
@@ -247,7 +246,7 @@ class ApplovinAds : IAds {
     override fun showRewards(
         activity: Activity,
         adUnitId: String,
-        callbackAds: CallbackAds,
+        callbackAds: CallbackAds?,
         iRewards: IRewards?
     ) {
         if (rewardedAd.isReady) {
@@ -258,7 +257,7 @@ class ApplovinAds : IAds {
             }))
             rewardedAd.showAd();
         } else {
-            callbackAds.onAdFailedToLoad("Rewards not ready")
+            callbackAds?.onAdFailedToLoad("Rewards not ready")
             loadInterstitial(activity, adUnitId)
         }
     }
