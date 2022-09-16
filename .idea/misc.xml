@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="admob/src/main/res/drawable/open.xml" value="0.2345" />
+        <entry key="admob/src/main/res/layout/admob_big_native.xml" value="0.13008130081300814" />
+        <entry key="admob/src/main/res/layout/admob_small_native.xml" value="0.21052631578947367" />
+        <entry key="admob/src/main/res/layout/coba.xml" value="0.2140625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="applovin/src/main/res/layout/max_big_native.xml" value="0.42552083333333335" />
+        <entry key="applovin/src/main/res/layout/max_small_native.xml" value="0.42552083333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

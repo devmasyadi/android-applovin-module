@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="16dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnInitialize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Initialize" />
+
+
+    <Button
+        android:id="@+id/btnShowBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Banner" />
+
+    <Button
+        android:id="@+id/btnShowInterstitial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Interstitial" />
+
+    <Button
+        android:id="@+id/btnShowRewards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Rewards" />
+
+    <Button
+        android:id="@+id/btnSmallNative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Small Native" />
+
+    <Button
+        android:id="@+id/btnShowMediumNative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Medium Native" />
+
+    <Button
+        android:id="@+id/btnShowOpenApp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Open App" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <RelativeLayout
+
+            android:id="@+id/nativeView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+
+            android:id="@+id/bannerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
