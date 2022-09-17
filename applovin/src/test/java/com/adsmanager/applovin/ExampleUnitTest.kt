@@ -1,4 +1,4 @@
-package com.adsmanager.admob
+package com.adsmanager.applovin
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

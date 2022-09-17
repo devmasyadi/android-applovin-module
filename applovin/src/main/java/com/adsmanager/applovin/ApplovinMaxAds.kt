@@ -2,10 +2,10 @@ package com.adsmanager.applovin
 
 import android.app.Activity
 import android.os.Handler
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import com.adsmanager.admob.R
 import com.applovin.mediation.*
 import com.applovin.mediation.ads.MaxAdView
 import com.applovin.mediation.ads.MaxInterstitialAd
@@ -20,20 +20,25 @@ import com.applovin.sdk.AppLovinSdkConfiguration
 import com.applovin.sdk.AppLovinSdkUtils
 import java.util.concurrent.TimeUnit
 import kotlin.math.pow
+import com.adsmanager.core.*
+import com.adsmanager.core.iadsmanager.*
 
-
-class ApplovinAds : IAds {
+private const val TAG = "ApplovinMaxAds"
+class ApplovinMaxAds : IAds {
 
     override fun initialize(
         activity: Activity,
         iInitialize: IInitialize,
-        testDevices: List<String>?
     ) {
         AppLovinSdk.getInstance(activity).mediationProvider = "max"
         AppLovinSdk.getInstance(activity).initializeSdk {
             // AppLovin SDK is initialized, start loading ads
             iInitialize.onInitializationComplete()
         }
+    }
+
+    override fun setTestDevices(activity: Activity, testDevices: List<String>) {
+        AppLovinSdk.getInstance(activity).settings.testDeviceAdvertisingIds = testDevices
     }
 
     override fun loadGdpr(activity: Activity, childDirected: Boolean) {
@@ -55,8 +60,6 @@ class ApplovinAds : IAds {
         AppLovinPrivacySettings.setIsAgeRestrictedUser(childDirected, activity)
     }
 
-    private var adView: MaxAdView? = null
-
     override fun showBanner(
         activity: Activity,
         bannerView: RelativeLayout,
@@ -64,12 +67,12 @@ class ApplovinAds : IAds {
         adUnitId: String,
         callbackAds: CallbackAds?
     ) {
-        adView = when (sizeBanner) {
+        val adView = when (sizeBanner) {
             SizeBanner.SMALL -> MaxAdView(adUnitId, activity)
             SizeBanner.MEDIUM -> MaxAdView(adUnitId, MaxAdFormat.MREC, activity)
         }
 
-        adView?.setListener(object : MaxAdViewAdListener {
+        adView.setListener(object : MaxAdViewAdListener {
             override fun onAdLoaded(ad: MaxAd?) {
                 callbackAds?.onAdLoaded()
             }
@@ -108,26 +111,27 @@ class ApplovinAds : IAds {
             SizeBanner.SMALL -> {
                 val isTablet = AppLovinSdkUtils.isTablet(activity)
                 val heightPx = AppLovinSdkUtils.dpToPx(activity, if (isTablet) 90 else 50)
-                adView?.layoutParams =
+                adView.layoutParams =
                     FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx)
-                adView?.setExtraParameter("adaptive_banner", "true")
+                adView.setExtraParameter("adaptive_banner", "true")
             }
             else -> {
                 // MREC width and height are 300 and 250 respectively, on phones and tablets
                 val widthPx = AppLovinSdkUtils.dpToPx(activity, 300)
                 val heightPx = AppLovinSdkUtils.dpToPx(activity, 250)
-                adView?.layoutParams = FrameLayout.LayoutParams(widthPx, heightPx)
+                adView.layoutParams = FrameLayout.LayoutParams(widthPx, heightPx)
             }
         }
         bannerView.removeAllViews()
         bannerView.addView(adView)
         // Load the ad
-        adView?.loadAd()
+        adView.loadAd()
     }
 
     private lateinit var interstitialAd: MaxInterstitialAd
     private var retryAttempt = 0.0
 
+    @Suppress("DEPRECATION")
     override fun loadInterstitial(activity: Activity, adUnitId: String) {
         interstitialAd = MaxInterstitialAd(adUnitId, activity)
         interstitialAd.setListener(object : MaxAdListener {
@@ -137,12 +141,15 @@ class ApplovinAds : IAds {
 
                 // Reset retry attempt
                 retryAttempt = 0.0
+                if(BuildConfig.DEBUG)
+                    Log.e(TAG, "onAdLoaded")
             }
 
             override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
                 // Interstitial ad failed to load
                 // AppLovin recommends that you retry with exponentially higher delays up to a maximum delay (in this case 64 seconds)
-
+                if(BuildConfig.DEBUG)
+                    Log.e(TAG, "adUnitId: $adUnitId, error: ${error?.message}")
                 retryAttempt++
                 val delayMillis =
                     TimeUnit.SECONDS.toMillis(2.0.pow(6.0.coerceAtMost(retryAttempt)).toLong())
@@ -255,13 +262,14 @@ class ApplovinAds : IAds {
                     iRewards?.onUserEarnedReward(rewardsItem)
                 }
             }))
-            rewardedAd.showAd();
+            rewardedAd.showAd()
         } else {
             callbackAds?.onAdFailedToLoad("Rewards not ready")
-            loadInterstitial(activity, adUnitId)
+            loadRewards(activity, adUnitId)
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun rewardListener(iRewards: IRewards?): MaxRewardedAdListener {
         return object : MaxRewardedAdListener {
             // MAX Ad Listener
