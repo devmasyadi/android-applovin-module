@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val applovinMaxAds = ApplovinMaxAds()
-        applovinMaxAds.initialize(activity = this, object : IInitialize {
+        applovinMaxAds.initialize(this, object : IInitialize {
             override fun onInitializationComplete() {
                 applovinMaxAds.loadInterstitial(this@MainActivity, interstitialId)
                 applovinMaxAds.loadRewards(this@MainActivity, rewardsId)

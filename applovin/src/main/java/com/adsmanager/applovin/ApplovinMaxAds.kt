@@ -1,6 +1,7 @@
 package com.adsmanager.applovin
 
 import android.app.Activity
+import android.content.Context
 import android.os.Handler
 import android.util.Log
 import android.view.ViewGroup
@@ -26,12 +27,9 @@ import com.adsmanager.core.iadsmanager.*
 private const val TAG = "ApplovinMaxAds"
 class ApplovinMaxAds : IAds {
 
-    override fun initialize(
-        activity: Activity,
-        iInitialize: IInitialize,
-    ) {
-        AppLovinSdk.getInstance(activity).mediationProvider = "max"
-        AppLovinSdk.getInstance(activity).initializeSdk {
+    override fun initialize(context: Context, iInitialize: IInitialize) {
+        AppLovinSdk.getInstance(context).mediationProvider = "max"
+        AppLovinSdk.getInstance(context).initializeSdk {
             // AppLovin SDK is initialized, start loading ads
             iInitialize.onInitializationComplete()
         }

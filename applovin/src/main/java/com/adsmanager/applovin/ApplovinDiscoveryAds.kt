@@ -1,6 +1,7 @@
 package com.adsmanager.applovin
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.widget.RelativeLayout
@@ -21,11 +22,8 @@ import kotlin.math.pow
 
 class ApplovinDiscoveryAds : IAds {
 
-    override fun initialize(
-        activity: Activity,
-        iInitialize: IInitialize,
-    ) {
-        AppLovinSdk.getInstance(activity).initializeSdk {
+    override fun initialize(context: Context, iInitialize: IInitialize) {
+        AppLovinSdk.getInstance(context).initializeSdk {
             // AppLovin SDK is initialized, start loading ads
             iInitialize.onInitializationComplete()
         }
