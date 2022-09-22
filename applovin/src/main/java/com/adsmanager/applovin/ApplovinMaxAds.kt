@@ -27,11 +27,11 @@ import com.adsmanager.core.iadsmanager.*
 private const val TAG = "ApplovinMaxAds"
 class ApplovinMaxAds : IAds {
 
-    override fun initialize(context: Context, iInitialize: IInitialize) {
+    override fun initialize(context: Context, appId: String?, iInitialize: IInitialize?) {
         AppLovinSdk.getInstance(context).mediationProvider = "max"
         AppLovinSdk.getInstance(context).initializeSdk {
             // AppLovin SDK is initialized, start loading ads
-            iInitialize.onInitializationComplete()
+            iInitialize?.onInitializationComplete()
         }
     }
 
@@ -177,6 +177,7 @@ class ApplovinMaxAds : IAds {
 
     override fun showInterstitial(activity: Activity, adUnitId: String, callbackAds: CallbackAds?) {
         if (interstitialAd.isReady) {
+            callbackAds?.onAdLoaded()
             interstitialAd.showAd()
         } else {
             callbackAds?.onAdFailedToLoad("Interstitial not ready ")

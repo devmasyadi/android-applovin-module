@@ -22,10 +22,10 @@ import kotlin.math.pow
 
 class ApplovinDiscoveryAds : IAds {
 
-    override fun initialize(context: Context, iInitialize: IInitialize) {
+    override fun initialize(context: Context, appId: String?, iInitialize: IInitialize?) {
         AppLovinSdk.getInstance(context).initializeSdk {
             // AppLovin SDK is initialized, start loading ads
-            iInitialize.onInitializationComplete()
+            iInitialize?.onInitializationComplete()
         }
     }
 
@@ -140,6 +140,7 @@ class ApplovinDiscoveryAds : IAds {
                 }
 
             }
+            callbackAds?.onAdLoaded()
             interstitialAd?.setAdDisplayListener(listener)
             interstitialAd?.showAndRender(applovinAd)
             loadInterstitial(activity, adUnitId)
