@@ -190,6 +190,21 @@ class ApplovinMaxAds : IAds {
     private var nativeAdLoader: MaxNativeAdLoader? = null
     private var loadedNativeAd: MaxAd? = null
 
+//    private fun createNativeAdView(layoutNative: Int, activity: Activity): MaxNativeAdView
+//    {
+//        val binder: MaxNativeAdViewBinder =
+//            MaxNativeAdViewBinder.Builder(layoutNative)
+//                .setTitleTextViewId(R.id.title_text_view)
+//                .setBodyTextViewId(R.id.body_text_view)
+//                .setAdvertiserTextViewId(R.id.advertiser_textView)
+//                .setIconImageViewId(R.id.icon_image_view)
+//                .setMediaContentViewGroupId(R.id.media_view_container)
+//                .setOptionsContentViewGroupId(R.id.ad_options_view)
+//                .setCallToActionButtonId(R.id.cta_button)
+//                .build()
+//        return MaxNativeAdView(binder, activity)
+//    }
+
     override fun showNativeAds(
         activity: Activity,
         nativeView: RelativeLayout,
@@ -214,6 +229,9 @@ class ApplovinMaxAds : IAds {
 
         val maxNativeAdView = MaxNativeAdView(binder, activity)
         nativeAdLoader = MaxNativeAdLoader(adUnitId, activity)
+        nativeAdLoader?.setRevenueListener {
+
+        }
         nativeAdLoader?.setNativeAdListener(object : MaxNativeAdListener() {
             override fun onNativeAdLoaded(nativeAdView: MaxNativeAdView?, nativeAd: MaxAd) {
                 // Clean up any pre-existing native ad to prevent memory leaks.

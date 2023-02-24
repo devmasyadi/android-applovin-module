@@ -6,7 +6,9 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.adsmanager.applovin.ApplovinMaxAds
+import com.adsmanager.applovin.ApplovinOpenAds
 import com.adsmanager.core.CallbackAds
+import com.adsmanager.core.CallbackOpenAd
 import com.adsmanager.core.SizeBanner
 import com.adsmanager.core.SizeNative
 import com.adsmanager.core.iadsmanager.IInitialize
@@ -22,17 +24,30 @@ class MainActivity : AppCompatActivity() {
     private val interstitialId = "7263a762d1a5366b"
     private val nativeId = "1bd465c12980924d"
     private val rewardsId = "c11378688d2adfd1"
+    private val appOpenId = "fcd4981c18e62771"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         val applovinMaxAds = ApplovinMaxAds()
         applovinMaxAds.initialize(this, null, object : IInitialize {
             override fun onInitializationComplete() {
+                ApplovinOpenAds.getInstance(this@MainActivity).loadAd(this@MainActivity, appOpenId, object : CallbackAds() {
+                    override fun onAdFailedToLoad(error: String?) {
+                        super.onAdFailedToLoad(error)
+                        Log.e("HALLO", "appOpen loadAd onAdFailedToLoad: $error")
+                    }
+
+                    override fun onAdLoaded() {
+                        super.onAdLoaded()
+                        Log.e("HALLO", "onAdLoaded loadAd appOpen")
+                    }
+                })
                 applovinMaxAds.loadInterstitial(this@MainActivity, interstitialId)
                 applovinMaxAds.loadRewards(this@MainActivity, rewardsId)
-                applovinMaxAds.loadGdpr(this@MainActivity, true)
+                applovinMaxAds.loadGdpr(this@MainActivity, false)
             }
         })
 
@@ -110,6 +125,26 @@ class MainActivity : AppCompatActivity() {
                         Log.e(TAG, error.toString())
                     }
                 })
+        }
+
+        findViewById<Button>(R.id.btnShowOpenApp).setOnClickListener {
+            ApplovinOpenAds.getInstance(this@MainActivity).showAdIfAvailable(appOpenId, object : CallbackOpenAd() {
+                override fun onAdFailedToLoad(error: String?) {
+                    super.onAdFailedToLoad(error)
+                    Log.e("HALLO", "appOpen showAdIfAvailable onAdFailedToLoad: $error")
+                }
+
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    Log.e("HALLO", "appOpen showAdIfAvailable onAdLoaded")
+                }
+
+                override fun onShowAdComplete() {
+                    super.onShowAdComplete()
+                    Log.e("HALLO", "appOpen showAdIfAvailable onShowAdComplete")
+                }
+
+            })
         }
 
     }

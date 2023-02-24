@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 
@@ -39,5 +40,10 @@ dependencies {
 
     implementation 'com.github.devmasyadi:android-ads-manager-core:1.0.8'
     implementation project(':applovin')
+
+    def lifecycle_version = '2.5.1'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
 }
