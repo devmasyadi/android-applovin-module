@@ -23,6 +23,8 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.pow
 import com.adsmanager.core.*
 import com.adsmanager.core.iadsmanager.*
+import com.adsmanager.core.rewards.IRewards
+import com.adsmanager.core.rewards.RewardsItem
 
 private const val TAG = "ApplovinMaxAds"
 class ApplovinMaxAds : IAds {
@@ -198,6 +200,7 @@ class ApplovinMaxAds : IAds {
         val layoutNative: Int = when (sizeNative) {
             SizeNative.SMALL -> R.layout.max_small_native
             SizeNative.MEDIUM -> R.layout.max_big_native
+            SizeNative.SMALL_RECTANGLE -> R.layout.max_small_rectangle_native
         }
         val binder: MaxNativeAdViewBinder = MaxNativeAdViewBinder.Builder(layoutNative)
             .setTitleTextViewId(R.id.title_text_view)

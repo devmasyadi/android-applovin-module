@@ -7,11 +7,11 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.adsmanager.applovin.ApplovinMaxAds
 import com.adsmanager.core.CallbackAds
-import com.adsmanager.core.IRewards
-import com.adsmanager.core.RewardsItem
+import com.adsmanager.core.SizeBanner
+import com.adsmanager.core.SizeNative
 import com.adsmanager.core.iadsmanager.IInitialize
-import com.adsmanager.core.iadsmanager.SizeBanner
-import com.adsmanager.core.iadsmanager.SizeNative
+import com.adsmanager.core.rewards.IRewards
+import com.adsmanager.core.rewards.RewardsItem
 
 
 private const val TAG = "TEST_APPLOVIN"
@@ -76,6 +76,20 @@ class MainActivity : AppCompatActivity() {
                 this,
                 nativeView,
                 SizeNative.SMALL,
+                nativeId,
+                object : CallbackAds() {
+                    override fun onAdFailedToLoad(error: String?) {
+                        Log.e(TAG, error.toString())
+                    }
+                })
+        }
+
+        findViewById<Button>(R.id.btnSmallNativeRectangle).setOnClickListener {
+            val nativeView = findViewById<RelativeLayout>(R.id.nativeView)
+            applovinMaxAds.showNativeAds(
+                this,
+                nativeView,
+                SizeNative.SMALL_RECTANGLE,
                 nativeId,
                 object : CallbackAds() {
                     override fun onAdFailedToLoad(error: String?) {

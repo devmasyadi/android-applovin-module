@@ -39,6 +39,12 @@
         android:text="Show Small Native" />
 
     <Button
+        android:id="@+id/btnSmallNativeRectangle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Small Native Rectangle" />
+
+    <Button
         android:id="@+id/btnShowMediumNative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

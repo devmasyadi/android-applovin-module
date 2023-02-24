@@ -9,6 +9,7 @@ import com.adsmanager.applovin.config.AppLovinCustomEventBanner
 import com.adsmanager.applovin.config.AppLovinCustomEventInterstitial
 import com.adsmanager.core.*
 import com.adsmanager.core.iadsmanager.*
+import com.adsmanager.core.rewards.IRewards
 import com.applovin.adview.AppLovinAdView
 import com.applovin.adview.AppLovinIncentivizedInterstitial
 import com.applovin.adview.AppLovinInterstitialAd
@@ -161,6 +162,7 @@ class ApplovinDiscoveryAds : IAds {
         when (sizeNative) {
             SizeNative.SMALL -> showBanner(activity, nativeView, SizeBanner.SMALL, adUnitId, callbackAds)
             SizeNative.MEDIUM -> showBanner(activity, nativeView, SizeBanner.MEDIUM, adUnitId, callbackAds)
+            SizeNative.SMALL_RECTANGLE -> showBanner(activity, nativeView, SizeBanner.MEDIUM, adUnitId, callbackAds)
         }
     }
 
