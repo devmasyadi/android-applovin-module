@@ -25,7 +25,7 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_youtube_grayb"
+                    android:background="@color/native_label_ads_background"
                     android:gravity="center"
                     android:padding="2dp"
                     android:text="Ad"
@@ -62,6 +62,7 @@
                 android:layout_height="50dp">
 
                 <ImageView
+                    android:src="@drawable/applovin_max_test"
                     android:id="@+id/icon_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

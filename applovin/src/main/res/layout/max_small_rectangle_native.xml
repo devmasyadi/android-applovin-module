@@ -25,7 +25,7 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/color_youtube_grayb"
+                    android:background="@color/native_label_ads_background"
                     android:gravity="center"
                     android:padding="2dp"
                     android:text="Ad"
@@ -64,6 +64,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:src="@drawable/applovin_max_test"
                 android:id="@+id/icon_image_view"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
@@ -103,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_gravity="center"
-            android:background="@color/button_install"
+            android:background="@color/native_button_install"
             android:textColor="@color/native_text_button"
             android:textSize="8sp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck"
