@@ -107,6 +107,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/round_black"
+                app:backgroundTint="@color/native_button_install"
                 android:textColor="@color/native_text_button"
                 android:textSize="8sp"
                 tools:text="Install" />
