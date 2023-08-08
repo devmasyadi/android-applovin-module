@@ -209,7 +209,7 @@ class ApplovinMaxAds : IAds {
         adUnitId: String,
         callbackAds: CallbackAds?
     ) {
-        var nativeAdLoader: MaxNativeAdLoader? = null
+        val nativeAdLoader = MaxNativeAdLoader(adUnitId, activity)
         var loadedNativeAd: MaxAd? = null
         val layoutNative: Int = when (sizeNative) {
             SizeNative.SMALL -> R.layout.max_small_native
@@ -227,7 +227,6 @@ class ApplovinMaxAds : IAds {
             .build()
 
         val maxNativeAdView = MaxNativeAdView(binder, activity)
-        nativeAdLoader = MaxNativeAdLoader(adUnitId, activity)
         nativeAdLoader.setRevenueListener {
 
         }
