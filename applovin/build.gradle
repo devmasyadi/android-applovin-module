@@ -40,6 +40,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     implementation 'com.github.devmasyadi:android-ads-manager-core:1.1.0'
-    implementation 'com.google.android.gms:play-services-ads:22.2.0'
-    implementation "com.applovin:applovin-sdk:11.11.1"
+    implementation 'com.google.android.gms:play-services-ads:22.3.0'
+    implementation "com.applovin:applovin-sdk:11.11.3"
 }
