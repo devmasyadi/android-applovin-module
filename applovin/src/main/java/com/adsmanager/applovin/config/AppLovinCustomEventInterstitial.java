@@ -1,3 +1,4 @@
+/*
 package com.adsmanager.applovin.config;
 
 import static android.util.Log.DEBUG;
@@ -31,11 +32,13 @@ import java.util.Map;
 import java.util.Queue;
 //Uranus
 
+*/
 /**
  * AppLovin SDK interstitial adapter for AdMob.
  * <p>
  * Created by Thomas So on 5/28/17.
- */
+ *//*
+
 
 //
 // PLEASE NOTE: We have renamed this class from "YOUR_PACKAGE_NAME.AdMobMediationInterEvent" to "YOUR_PACKAGE_NAME.AppLovinCustomEventInterstitial", you can use either classname in your AdMob account.
@@ -102,9 +105,11 @@ public class AppLovinCustomEventInterstitial
         }
     }
 
-    /**
+    */
+/**
      * Performs the given runnable on the main thread.
-     */
+     *//*
+
     public static void runOnUiThread(final Runnable runnable) {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
@@ -258,4 +263,4 @@ public class AppLovinCustomEventInterstitial
     public void videoPlaybackEnded(final AppLovinAd ad, final double percentViewed, final boolean fullyWatched) {
         log(DEBUG, "Interstitial video playback ended at playback percent: " + percentViewed);
     }
-}
+}*/

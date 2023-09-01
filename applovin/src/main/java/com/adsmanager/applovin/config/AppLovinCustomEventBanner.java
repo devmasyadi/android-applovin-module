@@ -1,3 +1,4 @@
+/*
 package com.adsmanager.applovin.config;
 
 import static android.util.Log.DEBUG;
@@ -22,11 +23,13 @@ import com.google.android.gms.ads.mediation.MediationAdRequest;
 import com.google.android.gms.ads.mediation.customevent.CustomEventBanner;
 import com.google.android.gms.ads.mediation.customevent.CustomEventBannerListener;
 
+*/
 /**
  * AppLovin SDK banner adapter for AdMob.
  * <p>
  * Created by thomasso on 4/12/17.
- */
+ *//*
+
 //Uranus
 public class AppLovinCustomEventBanner
         implements CustomEventBanner {
@@ -165,4 +168,4 @@ public class AppLovinCustomEventBanner
 
         return null;
     }
-}
+}*/

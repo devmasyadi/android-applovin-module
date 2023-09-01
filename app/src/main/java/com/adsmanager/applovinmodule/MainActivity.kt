@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.adsmanager.applovin.ApplovinDiscoveryAds
 import com.adsmanager.applovin.ApplovinMaxAds
 import com.adsmanager.applovin.ApplovinOpenAds
 import com.adsmanager.core.CallbackAds
@@ -21,17 +22,18 @@ private const val TAG = "TEST_APPLOVIN"
 class MainActivity : AppCompatActivity() {
 
     private val bannerId = "6933903a50a9dc5a"
-    private val interstitialId = "7263a762d1a5366b"
+    private val interstitialId = "48acd44ceae68ec2"
     private val nativeId = "1bd465c12980924d"
     private val rewardsId = "c11378688d2adfd1"
     private val appOpenId = "fcd4981c18e62771"
+    private val testDevices = listOf("4cf7dfd6-9019-462c-99a0-0d8087074a9a")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        val applovinMaxAds = ApplovinMaxAds()
+        val applovinMaxAds = ApplovinDiscoveryAds()
         applovinMaxAds.initialize(this, null, object : IInitialize {
             override fun onInitializationComplete() {
                 ApplovinOpenAds.getInstance(this@MainActivity).loadAd(this@MainActivity, appOpenId, object : CallbackAds() {
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                         Log.e("HALLO", "onAdLoaded loadAd appOpen")
                     }
                 })
+                applovinMaxAds.setTestDevices(this@MainActivity, testDevices)
                 applovinMaxAds.loadInterstitial(this@MainActivity, interstitialId)
                 applovinMaxAds.loadRewards(this@MainActivity, rewardsId)
                 applovinMaxAds.loadGdpr(this@MainActivity, false)

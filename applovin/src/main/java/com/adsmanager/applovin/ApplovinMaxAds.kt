@@ -7,6 +7,10 @@ import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import com.adsmanager.core.*
+import com.adsmanager.core.iadsmanager.*
+import com.adsmanager.core.rewards.IRewards
+import com.adsmanager.core.rewards.RewardsItem
 import com.applovin.mediation.*
 import com.applovin.mediation.ads.MaxAdView
 import com.applovin.mediation.ads.MaxInterstitialAd
@@ -21,12 +25,9 @@ import com.applovin.sdk.AppLovinSdkConfiguration
 import com.applovin.sdk.AppLovinSdkUtils
 import java.util.concurrent.TimeUnit
 import kotlin.math.pow
-import com.adsmanager.core.*
-import com.adsmanager.core.iadsmanager.*
-import com.adsmanager.core.rewards.IRewards
-import com.adsmanager.core.rewards.RewardsItem
 
 private const val TAG = "ApplovinMaxAds"
+
 class ApplovinMaxAds : IAds {
 
     override fun initialize(context: Context, appId: String?, iInitialize: IInitialize?) {
@@ -47,9 +48,11 @@ class ApplovinMaxAds : IAds {
                 AppLovinSdkConfiguration.ConsentDialogState.APPLIES -> {
                     // Show user consent dialog
                 }
+
                 AppLovinSdkConfiguration.ConsentDialogState.DOES_NOT_APPLY -> {
                     // No need to show consent dialog, proceed with initialization
                 }
+
                 else -> {
                     // Consent dialog state is unknown. Proceed with initialization, but check if the consent
                     // dialog should be shown on the next application initialization
@@ -115,6 +118,7 @@ class ApplovinMaxAds : IAds {
                     FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, heightPx)
                 adView.setExtraParameter("adaptive_banner", "true")
             }
+
             else -> {
                 // MREC width and height are 300 and 250 respectively, on phones and tablets
                 val widthPx = AppLovinSdkUtils.dpToPx(activity, 300)
@@ -141,14 +145,14 @@ class ApplovinMaxAds : IAds {
 
                 // Reset retry attempt
                 retryAttempt = 0.0
-                if(BuildConfig.DEBUG)
+                if (BuildConfig.DEBUG)
                     Log.e(TAG, "onAdLoaded")
             }
 
             override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
                 // Interstitial ad failed to load
                 // AppLovin recommends that you retry with exponentially higher delays up to a maximum delay (in this case 64 seconds)
-                if(BuildConfig.DEBUG)
+                if (BuildConfig.DEBUG)
                     Log.e(TAG, "adUnitId: $adUnitId, error: ${error?.message}")
                 retryAttempt++
                 val delayMillis =
